@@ -9,21 +9,7 @@ module "iam_user" {
   tags = var.tags
 }
 
-# ECR permission for admin user
-resource "aws_iam_policy" "ecr" {
-  name        = "ecr.${var.eks_cluster_name}"
-  path        = "/"
-  description = "ECR policy for ${var.iam_user_name} user"
-
-  policy = "${file("ecr-policy.json")}"
-}
-
-# Attach policies to the user
-resource "aws_iam_user_policy_attachment" "ecr" {
-  user       = module.iam_user.this_iam_user_name
-  policy_arn = aws_iam_policy.ecr.arn
-}
-
+# Admin policies to access cluster
 resource "aws_iam_user_policy_attachment" "AmazonEKSServicePolicy" {
   user       = module.iam_user.this_iam_user_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
@@ -37,11 +23,6 @@ resource "aws_iam_user_policy_attachment" "AmazonEKSClusterPolicy" {
 resource "aws_iam_user_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   user       = module.iam_user.this_iam_user_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-}
-
-resource "aws_iam_user_policy_attachment" "AmazonSESFullAccessPolicy" {
-  user       = module.iam_user.this_iam_user_name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSESFullAccess"
 }
 
 # Create the EKS cluster
