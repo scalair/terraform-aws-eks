@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.3 - 2019-08-09
+### Changed
+- Make `aws_iam_user_policy_attachment` policies conditional with `iam_user_create_user`
+
 ## v1.0.2 - 2019-08-09
 ### Added
 - Add `iam_user_create_user` variable

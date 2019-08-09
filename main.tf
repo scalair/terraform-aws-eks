@@ -12,16 +12,22 @@ module "iam_user" {
 
 # Admin policies to access cluster
 resource "aws_iam_user_policy_attachment" "AmazonEKSServicePolicy" {
+  count = var.iam_user_create_user ? 1 : 0
+
   user       = module.iam_user.this_iam_user_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 }
 
 resource "aws_iam_user_policy_attachment" "AmazonEKSClusterPolicy" {
+  count = var.iam_user_create_user ? 1 : 0
+
   user       = module.iam_user.this_iam_user_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
 resource "aws_iam_user_policy_attachment" "AmazonEKSWorkerNodePolicy" {
+  count = var.iam_user_create_user ? 1 : 0
+
   user       = module.iam_user.this_iam_user_name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
