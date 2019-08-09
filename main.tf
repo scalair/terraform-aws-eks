@@ -5,6 +5,7 @@ module "iam_user" {
   name          = var.iam_user_name
   pgp_key       = var.iam_user_pgp_key
   force_destroy = var.iam_user_force_destroy
+  create_user   = var.iam_user_create_user
 
   tags = var.tags
 }

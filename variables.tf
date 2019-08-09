@@ -59,6 +59,12 @@ variable "iam_user_force_destroy" {
   default     = true
 }
 
+variable "iam_user_create_user" {
+  description = "Whether to create the IAM user"
+  type        = bool
+  default     = true
+}
+
 
 ########################################
 # Module terraform-aws-modules/eks/aws #
