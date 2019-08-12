@@ -46,11 +46,13 @@ variable "subnet_state_region" {
 variable "iam_user_pgp_key" {
   description = "Either a base-64 encoded PGP public key, or a keybase username in the form keybase:username. Used to encrypt password and access key."
   type        = string
+  default     = ""
 }
 
 variable "iam_user_name" {
   description = "Desired name for the IAM user"
   type        = string
+  default     = ""
 }
 
 variable "iam_user_force_destroy" {
