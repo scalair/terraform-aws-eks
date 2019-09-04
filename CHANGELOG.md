@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.5 - 2019-09-04
+### Changed
+- Add missing policies `elasticloadbalancing:AddListenerCertificates` and `elasticloadbalancing:DescribeListenerCertificates`
+
 ## v1.0.4 - 2019-08-12
 ### Changed
 - Set default value for variables `iam_user_pgp_key` and `iam_user_name`
