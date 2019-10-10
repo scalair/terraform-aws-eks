@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.1.0 - 2019-10-10
+### Added
+- Add `provider.tf` to fix `aws` provider version to `2.31.0`
+
+### Changed
+- Update `terraform-aws-modules/eks/aws` to `6.0.2`
+
 ## v1.0.5 - 2019-09-04
 ### Changed
 - Add missing policies `elasticloadbalancing:AddListenerCertificates` and `elasticloadbalancing:DescribeListenerCertificates`

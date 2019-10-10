@@ -35,7 +35,7 @@ resource "aws_iam_user_policy_attachment" "AmazonEKSWorkerNodePolicy" {
 # Create the EKS cluster
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "5.1.0"
+  version = "6.0.2"
 
   cluster_name          = var.eks_cluster_name
   cluster_version       = var.eks_cluster_version
@@ -48,9 +48,9 @@ module "eks" {
 
   map_users = [
     {
-      user_arn = module.iam_user.this_iam_user_arn
+      userarn = module.iam_user.this_iam_user_arn
       username = module.iam_user.this_iam_user_name
-      group    = "system:masters"
+      groups    = ["system:masters"]
     },
   ]
 
