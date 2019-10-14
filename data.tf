@@ -17,3 +17,13 @@ data "terraform_remote_state" "subnet" {
     key    = "${var.subnet_state_key}"
   }
 }
+
+data "terraform_remote_state" "jumpbox" {
+  backend = "s3"
+
+  config = {
+    region = "${var.jumpbox_state_region}"
+    bucket = "${var.jumpbox_bucket}"
+    key    = "${var.jumpbox_state_key}"
+  }
+}

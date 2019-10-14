@@ -40,6 +40,24 @@ variable "subnet_state_region" {
   type        = string
 }
 
+#######################
+# jumpbox remote state #
+#######################
+variable "jumpbox_bucket" {
+  description = "Name of the bucket where jumpbox state is stored"
+  type        = string
+}
+
+variable "jumpbox_state_key" {
+  description = "Key where the state file of the jumpbox is stored"
+  type        = string
+}
+
+variable "jumpbox_state_region" {
+  description = "Region where the state file of the jumpbox is stored"
+  type        = string
+}
+
 ##################################################
 # Module terraform-aws-modules/terraform-aws-iam #
 ##################################################
