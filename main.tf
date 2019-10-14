@@ -32,25 +32,55 @@ resource "aws_iam_user_policy_attachment" "AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
 }
 
+# Additional SG for worker nodes
+resource "aws_security_group" "worker_nodes" {
+  description = "Allow SSH from the jumpbox and ICMP to worker nodes"
+  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+
+  ingress {
+    from_port       = 22
+    to_port         = 22
+    protocol        = "TCP"
+    security_groups = [data.terraform_remote_state.jumpbox.outputs.aws_security_group_id]
+  }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = var.tags
+}
+
 # Create the EKS cluster
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "6.0.2"
 
-  cluster_name          = var.eks_cluster_name
-  cluster_version       = var.eks_cluster_version
-  subnets               = data.terraform_remote_state.subnet.outputs.private_subnets
-  vpc_id                = data.terraform_remote_state.vpc.outputs.vpc_id
-  worker_groups         = var.eks_worker_groups
-  config_output_path    = var.eks_config_output_path
-  write_aws_auth_config = var.eks_write_aws_auth_config
-  write_kubeconfig      = var.eks_write_kubeconfig
+  cluster_name                         = var.eks_cluster_name
+  cluster_version                      = var.eks_cluster_version
+  subnets                              = data.terraform_remote_state.subnet.outputs.private_subnets
+  vpc_id                               = data.terraform_remote_state.vpc.outputs.vpc_id
+  worker_additional_security_group_ids = [aws_security_group.worker_nodes.id]
+  worker_groups                        = var.eks_worker_groups
+  config_output_path                   = var.eks_config_output_path
+  write_aws_auth_config                = var.eks_write_aws_auth_config
+  write_kubeconfig                     = var.eks_write_kubeconfig
 
   map_users = [
     {
-      userarn = module.iam_user.this_iam_user_arn
+      userarn  = module.iam_user.this_iam_user_arn
       username = module.iam_user.this_iam_user_name
-      groups    = ["system:masters"]
+      groups   = ["system:masters"]
     },
   ]
 

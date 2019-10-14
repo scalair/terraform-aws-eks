@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.0 - 2019-10-14
+### Added
+- Create an additional SG to be able to SSH from the jumpbox and enable ICMP.
+
 ## v1.1.0 - 2019-10-10
 ### Added
 - Add `provider.tf` to fix `aws` provider version to `2.31.0`
