@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.1 - 2019-10-18
+### Changed
+- Add missing outputs for terraform-aws-modules/eks/aws
+
 ## v1.2.0 - 2019-10-14
 ### Added
 - Create an additional SG to be able to SSH from the jumpbox and enable ICMP.
