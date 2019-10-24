@@ -37,28 +37,56 @@ resource "aws_security_group" "worker_nodes" {
   description = "Allow SSH from the jumpbox and ICMP to worker nodes"
   vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
 
-  ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "TCP"
-    security_groups = [data.terraform_remote_state.jumpbox.outputs.aws_security_group_id]
-  }
-
-  ingress {
-    from_port   = -1
-    to_port     = -1
-    protocol    = "icmp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
   tags = var.tags
+}
+
+resource "aws_security_group_rule" "jumpbox_ingress" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+  source_security_group_id = data.terraform_remote_state.jumpbox.outputs.aws_security_group_id
+
+  security_group_id = aws_security_group.worker_nodes.id
+}
+
+resource "aws_security_group_rule" "alb_ingress" {
+  count = var.eks_alb_attach ? 1 : 0
+
+  type                     = "ingress"
+  from_port                = var.eks_alb_port
+  to_port                  = var.eks_alb_port
+  protocol                 = "tcp"
+  source_security_group_id = data.terraform_remote_state.alb.outputs.load_balancer_security_group_id
+
+  security_group_id = aws_security_group.worker_nodes.id
+}
+
+resource "aws_security_group_rule" "icmp_ingress" {
+  type        = "ingress"
+  from_port   = -1
+  to_port     = -1
+  protocol    = "icmp"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.worker_nodes.id
+}
+
+resource "aws_security_group_rule" "all_egress" {
+  type         = "egress"
+  from_port    = 0
+  to_port      = 0
+  protocol     = "-1"
+  cidr_blocks  = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.worker_nodes.id
+}
+
+locals {
+  local_worker_group = merge(
+    var.eks_worker_groups.0,
+    var.eks_alb_attach ? {target_group_arns = data.terraform_remote_state.alb.outputs.target_group_arns} : {}
+  )
 }
 
 # Create the EKS cluster
@@ -71,7 +99,7 @@ module "eks" {
   subnets                              = data.terraform_remote_state.subnet.outputs.private_subnets
   vpc_id                               = data.terraform_remote_state.vpc.outputs.vpc_id
   worker_additional_security_group_ids = [aws_security_group.worker_nodes.id]
-  worker_groups                        = var.eks_worker_groups
+  worker_groups                        = [local.local_worker_group]
   config_output_path                   = var.eks_config_output_path
   write_aws_auth_config                = var.eks_write_aws_auth_config
   write_kubeconfig                     = var.eks_write_kubeconfig
@@ -93,7 +121,7 @@ resource "aws_iam_policy" "worker" {
   path        = "/"
   description = "Policies for worker nodes of ${var.eks_cluster_name}"
 
-  policy = "${file("worker-policy.json")}"
+  policy = file("worker-policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "worker-attach" {
