@@ -54,8 +54,8 @@ resource "aws_security_group_rule" "alb_ingress" {
   count = var.eks_alb_attach ? 1 : 0
 
   type                     = "ingress"
-  from_port                = var.eks_alb_port
-  to_port                  = var.eks_alb_port
+  from_port                = data.terraform_remote_state.alb.outputs.load_balancer_target_groups_backend_port.0
+  to_port                  = data.terraform_remote_state.alb.outputs.load_balancer_target_groups_backend_port.0
   protocol                 = "tcp"
   source_security_group_id = data.terraform_remote_state.alb.outputs.load_balancer_security_group_id
 

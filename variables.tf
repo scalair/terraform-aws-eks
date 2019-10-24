@@ -145,8 +145,3 @@ variable "eks_alb_attach" {
   type        = bool
   default     = false
 }
-
-variable "eks_alb_port" {
-  description = "Port to listen to when using an ALB provisioned by Terraform"
-  default     = 0
-}
