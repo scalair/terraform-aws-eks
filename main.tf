@@ -73,11 +73,11 @@ resource "aws_security_group_rule" "icmp_ingress" {
 }
 
 resource "aws_security_group_rule" "all_egress" {
-  type         = "egress"
-  from_port    = 0
-  to_port      = 0
-  protocol     = "-1"
-  cidr_blocks  = ["0.0.0.0/0"]
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
 
   security_group_id = aws_security_group.worker_nodes.id
 }
@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "all_egress" {
 locals {
   local_worker_group = merge(
     var.eks_worker_groups.0,
-    var.eks_alb_attach ? {target_group_arns = data.terraform_remote_state.alb.outputs.target_group_arns} : {}
+    var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb.outputs.target_group_arns } : {}
   )
 }
 
