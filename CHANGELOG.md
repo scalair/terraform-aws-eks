@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.2.2 - 2019-11-06
+### Added
+- Add `eks_cluster_create_timeout` and `eks_cluster_delete_timeout` variables
+
 ## v1.2.1 - 2019-10-18
 ### Changed
 - Add missing outputs for terraform-aws-modules/eks/aws
