@@ -145,3 +145,15 @@ variable "eks_alb_attach" {
   type        = bool
   default     = false
 }
+
+variable "eks_cluster_create_timeout" {
+  description = "Timeout value when creating the EKS cluster."
+  type        = string
+  default     = "15m"
+}
+
+variable "eks_cluster_delete_timeout" {
+  description = "Timeout value when deleting the EKS cluster."
+  type        = string
+  default     = "15m"
+}

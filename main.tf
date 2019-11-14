@@ -103,6 +103,8 @@ module "eks" {
   config_output_path                   = var.eks_config_output_path
   write_aws_auth_config                = var.eks_write_aws_auth_config
   write_kubeconfig                     = var.eks_write_kubeconfig
+  cluster_create_timeout               = var.eks_cluster_create_timeout
+  cluster_delete_timeout               = var.eks_cluster_delete_timeout
 
   map_users = [
     {
