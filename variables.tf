@@ -64,16 +64,19 @@ variable "jumpbox_state_region" {
 variable "alb_bucket" {
   description = "Name of the bucket where ALB state is stored"
   type        = string
+  default     = ""
 }
 
 variable "alb_state_key" {
   description = "Key where the state file of the ALB is stored"
   type        = string
+  default     = ""
 }
 
 variable "alb_state_region" {
   description = "Region where the state file of the ALB is stored"
   type        = string
+  default     = ""
 }
 
 ##################################################

@@ -29,6 +29,8 @@ data "terraform_remote_state" "jumpbox" {
 }
 
 data "terraform_remote_state" "alb" {
+  count = var.eks_alb_attach ? 1 : 0
+
   backend = "s3"
 
   config = {
