@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.0 - 2019-11-14
+### Added
+- Possibility to attach an existing ALB to a worker group
+
 ## v1.2.2 - 2019-11-06
 ### Added
 - Add `eks_cluster_create_timeout` and `eks_cluster_delete_timeout` variables
