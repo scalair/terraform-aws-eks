@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.1 - 2019-11-14
+### Fixed
+- Fix ALB remote state conditional
+
 ## v1.3.0 - 2019-11-14
 ### Added
 - Possibility to attach an existing ALB to a worker group

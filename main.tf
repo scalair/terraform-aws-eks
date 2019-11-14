@@ -54,10 +54,10 @@ resource "aws_security_group_rule" "alb_ingress" {
   count = var.eks_alb_attach ? 1 : 0
 
   type                     = "ingress"
-  from_port                = data.terraform_remote_state.alb.outputs.load_balancer_target_groups_backend_port.0
-  to_port                  = data.terraform_remote_state.alb.outputs.load_balancer_target_groups_backend_port.0
+  from_port                = data.terraform_remote_state.alb[0].outputs.load_balancer_target_groups_backend_port.0
+  to_port                  = data.terraform_remote_state.alb[0].outputs.load_balancer_target_groups_backend_port.0
   protocol                 = "tcp"
-  source_security_group_id = data.terraform_remote_state.alb.outputs.load_balancer_security_group_id
+  source_security_group_id = data.terraform_remote_state.alb[0].outputs.load_balancer_security_group_id
 
   security_group_id = aws_security_group.worker_nodes.id
 }
@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "all_egress" {
 locals {
   local_worker_group = merge(
     var.eks_worker_groups.0,
-    var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb.outputs.target_group_arns } : {}
+    var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb[0].outputs.target_group_arns } : {}
   )
 }
 
