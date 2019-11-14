@@ -58,6 +58,24 @@ variable "jumpbox_state_region" {
   type        = string
 }
 
+####################
+# ALB remote state #
+####################
+variable "alb_bucket" {
+  description = "Name of the bucket where ALB state is stored"
+  type        = string
+}
+
+variable "alb_state_key" {
+  description = "Key where the state file of the ALB is stored"
+  type        = string
+}
+
+variable "alb_state_region" {
+  description = "Region where the state file of the ALB is stored"
+  type        = string
+}
+
 ##################################################
 # Module terraform-aws-modules/terraform-aws-iam #
 ##################################################
@@ -120,6 +138,12 @@ variable "eks_worker_groups" {
   description = "A list of maps defining worker group configurations to be defined using AWS Launch Configurations. See workers_group_defaults for valid keys."
   type        = any
   default     = []
+}
+
+variable "eks_alb_attach" {
+  description = "If true, Terraform will use remote state to associate an ALB with the cluster"
+  type        = bool
+  default     = false
 }
 
 variable "eks_cluster_create_timeout" {
