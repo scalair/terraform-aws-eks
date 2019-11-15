@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.2 - 2019-11-14
+### Added
+- Add `iam_user_arn` to outputs
+
 ## v1.3.1 - 2019-11-14
 ### Fixed
 - Fix ALB remote state conditional
