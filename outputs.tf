@@ -112,6 +112,10 @@ output "worker_autoscaling_policy_arn" {
 ##################################################
 # Module terraform-aws-modules/terraform-aws-iam #
 ##################################################
+output "iam_user_arn" {
+  value = module.iam_user.this_iam_user_arn
+}
+
 output "iam_access_key_id" {
   value = module.iam_user.this_iam_access_key_id
 }
