@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.3 - 2020-01-13
+### Added
+- Add `cluster_oidc_issuer_url` to outputs
+
 ## v1.3.2 - 2019-11-14
 ### Added
 - Add `iam_user_arn` to outputs
