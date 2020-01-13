@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.3 - 2020-01-13
+### Added
+- Add `eks_cluster_enabled_log_types` variable
+
 ## v1.3.2 - 2019-11-14
 ### Added
 - Add `iam_user_arn` to outputs
