@@ -105,6 +105,7 @@ module "eks" {
   write_kubeconfig                     = var.eks_write_kubeconfig
   cluster_create_timeout               = var.eks_cluster_create_timeout
   cluster_delete_timeout               = var.eks_cluster_delete_timeout
+  cluster_enabled_log_types            = var.eks_cluster_enabled_log_types
 
   map_users = [
     {
