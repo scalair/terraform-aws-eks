@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.4 - 2020-02-05
+### Added
+- Add efs and sns worker policies
+
 ## v1.3.3 - 2020-01-13
 ### Added
 - Add `eks_cluster_enabled_log_types` variable
