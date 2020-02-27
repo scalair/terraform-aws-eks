@@ -11,6 +11,15 @@
         "Resource": "*"
       },
       {
+        "Action": [
+          "cloudwatch:GetMetricStatistics",
+          "cloudwatch:ListMetrics",
+          "tag:GetResources"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
         "Effect": "Allow",
         "Action": [
           "ec2:AuthorizeSecurityGroupIngress",
