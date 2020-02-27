@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.5 - 2020-02-27
+### Added
+- Add cloudwatch worker policies
+
 ## v1.3.4 - 2020-02-05
 ### Added
 - Add efs and sns worker policies
