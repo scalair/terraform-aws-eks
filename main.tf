@@ -131,3 +131,14 @@ resource "aws_iam_role_policy_attachment" "worker-attach" {
   role       = module.eks.worker_iam_role_name
   policy_arn = aws_iam_policy.worker.arn
 }
+
+resource "aws_autoscaling_schedule" "eks_asg_schedules" {
+  for_each = var.eks_asg_schedules
+
+  scheduled_action_name  = each.key
+  min_size               = each.value.min_size
+  max_size               = each.value.max_size
+  desired_capacity       = each.value.desired_capacity
+  recurrence             = each.value.recurrence
+  autoscaling_group_name = module.eks.workers_asg_names[0]
+}

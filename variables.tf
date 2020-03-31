@@ -163,6 +163,17 @@ variable "eks_cluster_delete_timeout" {
   
 variable "eks_cluster_enabled_log_types" {
   description = "A list of the desired control plane logging to enable. For more information, see Amazon EKS Control Plane Logging documentation (https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)"
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
+}
+
+variable "eks_asg_schedules" {
+  description = "A map of all schedules to apply to the autoscaling group."
+  type        = map(object({
+    min_size         = number,
+    max_size         = number,
+    desired_capacity = number,
+    recurrence       = string
+  }))
+  default     = {}
 }
