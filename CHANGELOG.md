@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.7 - 2020-06-23
+### Changed
+- Remove aws provider block
+
 ## v1.3.6 - 2020-03-31
 ### Added
 - Add autoscaling group schedules
