@@ -1,5 +1,31 @@
 # Changelog
 
+## v2.0.0 - 2020-11-18
+
+### Added
+
+- support for multiple `workers_groups`
+
+### Removed
+
+- Remove any reference to terraform remote state
+  - `vpc_bucket` variable
+  - `vpc_state_key` variable
+  - `vpc_state_region` variable
+  - `subnet_bucket` variable
+  - `subnet_state_key` variable
+  - `subnet_state_region` variable
+  - `jumpbox_bucket` variable
+  - `jumpbox_state_key` variable
+  - `jumpbox_state_region` variable
+- Remove reference to `aws_security_group_rule`
+  - related to `jumpbox`
+  - related to `alb`
+  - related to `icmp`
+  - related to `egress`
+- Remove `aws_autoscaling_schedule`
+- Remove `aws_iam_policy` and its policy `aws_iam_role_policy_attachment`
+
 ## v1.3.7 - 2020-06-23
 ### Changed
 - Remove aws provider block

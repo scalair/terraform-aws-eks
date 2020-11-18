@@ -101,14 +101,6 @@ output "worker_iam_role_arn" {
   value = module.eks.worker_iam_role_arn
 }
 
-output "worker_autoscaling_policy_name" {
-  value = module.eks.worker_autoscaling_policy_name
-}
-
-output "worker_autoscaling_policy_arn" {
-  value = module.eks.worker_autoscaling_policy_arn
-}
-
 ##################################################
 # Module terraform-aws-modules/terraform-aws-iam #
 ##################################################
