@@ -2,6 +2,10 @@
 
 ## v2.0.0 - 2020-11-18
 
+### Added
+
+- support for multiple `workers_groups`
+
 ### Removed
 
 - Remove any reference to terraform remote state
