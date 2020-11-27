@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.3.8 - 2020-11-27
+### Changed
+- Update iam-user module version
+
 ## v1.3.7 - 2020-06-23
 ### Changed
 - Remove aws provider block
