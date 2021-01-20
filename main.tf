@@ -83,12 +83,12 @@ resource "aws_security_group_rule" "all_egress" {
   security_group_id = aws_security_group.worker_nodes.id
 }
 
-locals {
-  local_worker_group = merge(
-    var.eks_worker_groups,
-    var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb[0].outputs.target_group_arns } : {}
-  )
-}
+#locals {
+#  local_worker_group = merge(
+#    var.eks_worker_groups,
+#    var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb[0].outputs.target_group_arns } : {}
+#  )
+#}
 
 # Create the EKS cluster
 module "eks" {
@@ -100,7 +100,8 @@ module "eks" {
   subnets                              = data.terraform_remote_state.subnet.outputs.private_subnets
   vpc_id                               = data.terraform_remote_state.vpc.outputs.vpc_id
   worker_additional_security_group_ids = [aws_security_group.worker_nodes.id]
-  worker_groups                        = [local.local_worker_group]
+  worker_groups                        = var.eks_worker_groups
+  #worker_groups                        = [local.local_worker_group]
   config_output_path                   = var.eks_config_output_path
   write_aws_auth_config                = var.eks_write_aws_auth_config
   write_kubeconfig                     = var.eks_write_kubeconfig
