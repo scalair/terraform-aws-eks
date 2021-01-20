@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "all_egress" {
 
 locals {
   local_worker_group = merge(
-    var.eks_worker_groups.0,
+    var.eks_worker_groups,
     var.eks_alb_attach ? { target_group_arns = data.terraform_remote_state.alb[0].outputs.target_group_arns } : {}
   )
 }
