@@ -37,6 +37,7 @@ resource "aws_iam_user_policy_attachment" "AmazonEKSWorkerNodePolicy" {
 
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
+  version         = "13.2.1"
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
   subnets         = var.subnets
