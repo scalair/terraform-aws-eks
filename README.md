@@ -28,8 +28,15 @@ module "eks" {
         "subnet-03ad134r370ua1337"
     ]
 
-    manage_aws_auth     = true
-    iam_user_pgp_key    = "keybase:scalair_pce"
+    node_groups = {
+        main = {
+            desired_capacity = 3
+            max_capacity     = 10
+            min_capacity     = 3
+            instance_types   = ["t3a.small"]
+            capacity_type    = "SPOT" # or ON_DEMAND
+        }
+    }
 
     worker_groups = [
         {
@@ -61,42 +68,52 @@ module "eks" {
         }
     ]
 
+    # Example of IAM Role for Service Account
+    enable_irsa = true
+    irsa_rules = [
+        {
+            role_name                 = "cluster-autoscaler"
+            service_account_name      = "cluster-autoscaler"
+            service_account_namespace = "kube-system"
+            iam_policy                = "{...}"
+        }
+    ]
+
+    # You can attach additional security groups to worker groups (but not node groups)
+    worker_additional_security_groups = [
+        {
+            name = "additional-eks-sg",
+            ingress_rules = [
+                {
+                    from_port   = 32323
+                    to_port     = 32323
+                    protocol    = "tcp"
+                    description = "HTTP"
+                    cidr_blocks = "0.0.0.0/0"
+                }
+            ]
+        }
+    ]
+
+    # Schedules apply to all Autoscaling Groups
+    asg_schedules = {
+        "startup" = {
+            min_size         = "2"
+            max_size         = "10"
+            desired_capacity = "5"
+            recurrence       = "0 7 * * 1-5"
+        },
+        "shutdown" = {
+            min_size         = "0"
+            max_size         = "0"
+            desired_capacity = "0"
+            recurrence       = "0 18 * * 1-5"
+        },
+    }
+
     tags = {
         "environment" = "dev"
         "client"      = "scalair"
     }
 }
 ```
-
-## User authentication & authorization
-
-The module creates a IAM user that has admin privileges within the EKS cluster.
-
-It also attaches the following AWS built-in policies to the admin user :
-
-- `AmazonEKSServicePolicy`
-- `AmazonEKSClusterPolicy`
-- `AmazonEKSWorkerNodePolicy`
-
-Once the cluster has been deployed, you can ***retrieve IAM credentials*** :
-
-```bash
-terraform output iam_access_key_id
-terraform output iam_access_key_encrypted_secret
-```
-
-The `iam_access_key_encrypted_secret` is actually base64 encrypted, so you can decrypt it using the configured PGP keypair.
-
-For example, here is how to decrypt it with your Keybase PGP keypair :
-
-```bash
-export KEYBASE_USERNAME=keybase_user
-export KEYBASE_PAPERKEY=keybase_paperkey
-export KEYBASE_PASSPHRASE=keybase_passphrase
-
-terraform output iam_access_key_encrypted_secret|base64 -d|keybase pgp decrypt
-```
-
-## Limitations
-
-- `node_groups` : only `worker_groups` are supported

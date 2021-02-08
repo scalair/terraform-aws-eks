@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.0.0 - 2021-02-08
+
+This release introduces major *breaking changes*. It should be used carefully.
+### Added
+
+- Node Groups
+- IRSA policies creation
+- Additional security groups for Worker Groups
+- Autoscaling Groups schedules
+
+### Changed
+
+- Using v14 of `terraform-aws-eks` module
+- This module does not create an IAM user for the cluster anymore. It must be passed as argument.
+
 ## v2.0.0 - 2020-11-18
 
 ### Added
