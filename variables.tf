@@ -32,13 +32,13 @@ variable "node_groups_defaults" {
 
 variable "worker_groups" {
   description = "A list of maps defining worker group configurations to be defined using AWS Launch Configurations. See workers_group_defaults for valid keys."
-  type        = list
+  type        = any
   default     = []
 }
 
 variable "node_groups" {
   description = "Map of map of node groups to create."
-  type        = map
+  type        = any
   default     = {}
 }
 
