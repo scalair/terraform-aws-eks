@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.0.1 - 2021-02-16
+
+### Fixed
+
+- `worker_groups` and `node_groups` variable types to `any`
+
 ## v3.0.0 - 2021-02-08
 
 This release introduces major *breaking changes*. It should be used carefully.
