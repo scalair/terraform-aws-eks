@@ -9,6 +9,7 @@ This module use the official [terraform-aws-eks](https://github.com/terraform-aw
 Some prerequisites are mandatories to create the EKS cluster :
 
 - VPC with subnets
+- IAM user with the following permissions: AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, AmazonEKSServicePolicy
 
 ## Usage
 
@@ -25,8 +26,7 @@ module "eks" {
         "subnet-xxxxxxxxxxxxxxxx"
     ]
     
-    // This user must be created beforehand with the following permissions:
-    // AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, AmazonEKSServicePolicy
+    // This admin user must be created beforehand
     map_users = [
         {
             userarn  = "arn:aws:iam::xxxxxxxxxxxx:user/eks-admin"
