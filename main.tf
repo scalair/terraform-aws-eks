@@ -19,7 +19,7 @@ module "security_group" {
 
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 14.0"
+  version = "~> 17.1"
 
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
