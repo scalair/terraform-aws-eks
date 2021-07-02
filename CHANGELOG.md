@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.1.0 - 2021-07-02
+
+## Changed
+
+- Update module version for Terraform 1.0
+
 ## v3.0.1 - 2021-02-16
 
 ### Fixed
