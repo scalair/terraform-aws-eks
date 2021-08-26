@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.2.0 - 2021-08-26
+
+## Changed
+
+- Remove deprecated version constraint in kubernetes provider
+
 ## v3.1.0 - 2021-07-02
 
 ## Changed
