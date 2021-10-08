@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.3.0 - 2021-10-09
+
+## Changed
+
+- Add time_zone to ASG schedule
+
 ## v3.2.0 - 2021-08-26
 
 ## Changed

@@ -109,7 +109,8 @@ variable "asg_schedules" {
     min_size         = number,
     max_size         = number,
     desired_capacity = number,
-    recurrence       = string
+    recurrence       = string,
+    time_zone        = string
   }))
   default = {}
 }

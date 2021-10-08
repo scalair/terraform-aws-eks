@@ -84,6 +84,7 @@ locals {
         max_size               = schedule.max_size
         desired_capacity       = schedule.desired_capacity
         recurrence             = schedule.recurrence
+        time_zone              = schedule.time_zone
         autoscaling_group_name = asg_name
       }
     ]
@@ -98,6 +99,7 @@ resource "aws_autoscaling_schedule" "asg_schedules" {
   max_size               = each.value.max_size
   desired_capacity       = each.value.desired_capacity
   recurrence             = each.value.recurrence
+  time_zone              = each.value.time_zone
   autoscaling_group_name = each.value.autoscaling_group_name
 }
 
